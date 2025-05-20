@@ -3,13 +3,14 @@
 ## Libs Configuration
 
 - [Husky](https://github.com/typicode/husky)
+- [Lint-Staged](https://github.com/lint-staged/lint-staged)
 
 ### Husky
 
-Install Husky and Lint-Stagged with the following command:
+Install Husky and Lint-Staged with the following command:
 
 ```bash
-npm install -D husky lint-stagged -W
+npm install -D husky lint-staged -W
 ```
 
 After install the lib, run the command bellow to initialize Husky on your monorepo:
@@ -35,7 +36,7 @@ npx nx affected:lint --fix --parallel
 npx nx format:write
 ```
 
-The last thing you'll have to do is integrate lint-stagged including in your package.json the following code:
+The last thing you'll have to do is integrate lint-staged including in your package.json the following code:
 
 ```bash
  "lint-staged": {
