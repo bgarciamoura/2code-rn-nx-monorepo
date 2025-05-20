@@ -51,10 +51,10 @@ The last thing you'll have to do is integrate lint-staged including in your pack
 
 ### Storybook
 
-Install Storybook using the following command. This will install Storybook plugin to the NX Workspace and the storybook library for use. 
+Install Storybook using the following command. This will install Storybook plugin to the NX Workspace and the storybook library for use.
 
 ```bash
-npm install -D @nx/storybook -W 
+npm install -D @nx/storybook -W
 npx nx add @nx/storybook
 ```
 
@@ -69,3 +69,5 @@ To initialize the storybook into created lib you'll have to run one more command
 ```bash
 npx nx g @nx/react:storybook-configuration
 ```
+
+Finally, you can run the Storybook using `npx nx storybook your-lib-name`
