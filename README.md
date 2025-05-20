@@ -63,3 +63,9 @@ After run the commands, you'll have to create the UI library to use Storybook. Y
 ```bash
 npx nx g @nx/expo:lib libs/your-lib-name
 ```
+
+To initialize the storybook into created lib you'll have to run one more command:
+
+```bash
+npx nx g @nx/react:storybook-configuration
+```
