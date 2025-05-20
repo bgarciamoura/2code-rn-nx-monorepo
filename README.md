@@ -4,6 +4,7 @@
 
 - [Husky](https://github.com/typicode/husky)
 - [Lint-Staged](https://github.com/lint-staged/lint-staged)
+- [Storybook](https://storybook.js.org/)
 
 ### Husky
 
@@ -46,4 +47,19 @@ The last thing you'll have to do is integrate lint-staged including in your pack
       "git add"
     ]
   }
+```
+
+### Storybook
+
+Install Storybook using the following command. This will install Storybook plugin to the NX Workspace and the storybook library for use. 
+
+```bash
+npm install -D @nx/storybook -W 
+npx nx add @nx/storybook
+```
+
+After run the commands, you'll have to create the UI library to use Storybook. You just need to run this if you already doesn't have created an ui lib previously.
+
+```bash
+npx nx g @nx/expo:lib libs/your-lib-name
 ```
