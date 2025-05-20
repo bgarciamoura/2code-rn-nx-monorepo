@@ -1,42 +1,42 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
-import { mergeConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { mergeConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 const config: StorybookConfig = {
   stories: [
-    "../src/lib/**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    "../src/components/**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
+    '../src/lib/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    '../src/components/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
   ],
-  addons: ["@storybook/addon-essentials"],
+  addons: ['@storybook/addon-essentials'],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
 
   viteFinal: async (config) =>
     mergeConfig(config, {
       define: {
-        global: "window",
+        global: 'window',
       },
       resolve: {
         extensions: [
-          ".mjs",
-          ".web.tsx",
-          ".tsx",
-          ".web.ts",
-          ".ts",
-          ".web.jsx",
-          ".jsx",
-          ".web.js",
-          ".js",
-          ".css",
-          ".json",
+          '.mjs',
+          '.web.tsx',
+          '.tsx',
+          '.web.ts',
+          '.ts',
+          '.web.jsx',
+          '.jsx',
+          '.web.js',
+          '.js',
+          '.css',
+          '.json',
           ...(config.resolve?.extensions ?? []),
         ],
         alias: {
-          "react-native": "react-native-web",
+          'react-native': 'react-native-web',
         },
       },
       plugins: [react(), nxViteTsPaths()],

@@ -1,4 +1,4 @@
-import { Pressable, Text } from "react-native";
+import { Pressable, Text } from 'react-native';
 
 interface ButtonProps {
   title: string;
@@ -10,8 +10,8 @@ interface ButtonProps {
 const Button = ({
   title,
   onPress,
-  buttonColor = "blue",
-  textColor = "white",
+  buttonColor = 'blue',
+  textColor = 'white',
 }: ButtonProps) => {
   return (
     <Pressable
@@ -20,7 +20,7 @@ const Button = ({
         backgroundColor: buttonColor,
         padding: 10,
         borderRadius: 5,
-        alignItems: "center",
+        alignItems: 'center',
       }}
     >
       <Text
