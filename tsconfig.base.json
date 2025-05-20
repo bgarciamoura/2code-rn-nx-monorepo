@@ -5,7 +5,9 @@
     "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "lib": ["es2022"],
+    "lib": [
+      "es2022"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmitOnError": true,
@@ -16,6 +18,24 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"]
-  }
+    "customConditions": [
+      "development"
+    ],
+    "paths": {
+      "@tocode/ui": [
+        "./packages/ui/src/index"
+      ],
+      "@tocode/host": [
+        "./apps/host/src/index"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "./packages/ui/tsconfig.json"
+    },
+    {
+      "path": "./apps/host/tsconfig.json"
+    }
+  ]
 }
