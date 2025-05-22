@@ -1,7 +1,7 @@
-import { darkTheme, lightTheme } from "@tocode/ui";
-import type { Theme } from "@tocode/ui";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { Appearance, useColorScheme } from "react-native";
+import { darkTheme, lightTheme } from '@tocode/ui';
+import type { Theme } from '@tocode/ui';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { Appearance, useColorScheme } from 'react-native';
 
 type ThemeContextData = {
   theme: Theme;
@@ -19,7 +19,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const system = useColorScheme();
-  const [mode, setMode] = useState<"light" | "dark">(system || "light");
+  const [mode, setMode] = useState<'light' | 'dark'>(system || 'light');
 
   useEffect(() => {
     const sub = Appearance.addChangeListener(({ colorScheme }) => {
@@ -29,10 +29,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const theme = useMemo<Theme>(
-    () => (mode === "dark" ? darkTheme : lightTheme),
-    [mode],
+    () => (mode === 'dark' ? darkTheme : lightTheme),
+    [mode]
   );
-  const toggleTheme = () => setMode((m) => (m === "dark" ? "light" : "dark"));
+  const toggleTheme = () => setMode((m) => (m === 'dark' ? 'light' : 'dark'));
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
