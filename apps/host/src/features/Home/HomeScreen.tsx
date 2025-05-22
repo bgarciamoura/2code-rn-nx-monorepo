@@ -1,11 +1,11 @@
-import { makeStyles } from '@tocode/ui';
-import { useMemo } from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { useTheme } from '../../contexts/ThemeProvider';
+import { GlobalStyles } from "@tocode/ui";
+import { useMemo } from "react";
+import { Pressable, Text, View } from "react-native";
+import { useTheme } from "../../contexts/ThemeProvider";
 
 const HomeScreen = () => {
   const { theme, toggleTheme } = useTheme();
-  const styles = useMemo(() => makeStyles(theme), [theme]);
+  const styles = useMemo(() => GlobalStyles(theme), [theme]);
 
   return (
     <View style={styles.container}>
