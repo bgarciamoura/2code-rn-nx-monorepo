@@ -20,6 +20,18 @@ export default [
               sourceTag: '*',
               onlyDependOnLibsWithTags: ['*'],
             },
+            {
+              sourceTag: 'scope:lib',
+              onlyDependOnLibsWithTags: ['scope:lib', 'scope:shared'],
+            },
+            {
+              sourceTag: 'scope:app',
+              onlyDependOnLibsWithTags: [
+                'scope:app',
+                'scope:shared',
+                'scope:lib',
+              ],
+            },
           ],
         },
       ],
