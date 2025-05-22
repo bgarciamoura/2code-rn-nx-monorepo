@@ -1,0 +1,8 @@
+{
+  "name": "host",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/host/src",
+  "projectType": "library",
+  "tags": ["scope:app", "type:app"],
+  "targets": {}
+}
