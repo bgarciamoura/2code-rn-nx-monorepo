@@ -1,87 +1,87 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { View } from "react-native";
-import Typography from "./Typography";
+import type { Meta, StoryObj } from '@storybook/react';
+import { View } from 'react-native';
+import Typography from './Typography';
 
 const meta: Meta<typeof Typography> = {
-  title: "Atoms/Typography",
+  title: 'Atoms/Typography',
   component: Typography,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
         component:
-          "Componente de tipografia reutilizável seguindo o padrão Atomic Design. Oferece diferentes variantes de texto com customização de cor, alinhamento e peso da fonte.",
+          'Componente de tipografia reutilizável seguindo o padrão Atomic Design. Oferece diferentes variantes de texto com customização de cor, alinhamento e peso da fonte.',
       },
     },
   },
   argTypes: {
     variant: {
-      control: { type: "select" },
+      control: { type: 'select' },
       options: [
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "subtitle1",
-        "subtitle2",
-        "body1",
-        "body2",
-        "button",
-        "caption",
-        "overline",
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'subtitle1',
+        'subtitle2',
+        'body1',
+        'body2',
+        'button',
+        'caption',
+        'overline',
       ],
-      description: "Variante do texto que define tamanho, peso e espaçamento",
+      description: 'Variante do texto que define tamanho, peso e espaçamento',
       table: {
-        defaultValue: { summary: "body1" },
+        defaultValue: { summary: 'body1' },
       },
     },
     color: {
-      control: { type: "color" },
-      description: "Cor do texto",
+      control: { type: 'color' },
+      description: 'Cor do texto',
       table: {
-        defaultValue: { summary: "inherit" },
+        defaultValue: { summary: 'inherit' },
       },
     },
     align: {
-      control: { type: "select" },
-      options: ["auto", "left", "right", "center", "justify"],
-      description: "Alinhamento do texto",
+      control: { type: 'select' },
+      options: ['auto', 'left', 'right', 'center', 'justify'],
+      description: 'Alinhamento do texto',
       table: {
-        defaultValue: { summary: "auto" },
+        defaultValue: { summary: 'auto' },
       },
     },
     weight: {
-      control: { type: "select" },
+      control: { type: 'select' },
       options: [
-        "normal",
-        "bold",
-        "100",
-        "200",
-        "300",
-        "400",
-        "500",
-        "600",
-        "700",
-        "800",
-        "900",
+        'normal',
+        'bold',
+        '100',
+        '200',
+        '300',
+        '400',
+        '500',
+        '600',
+        '700',
+        '800',
+        '900',
       ],
-      description: "Peso da fonte",
+      description: 'Peso da fonte',
       table: {
-        defaultValue: { summary: "normal" },
+        defaultValue: { summary: 'normal' },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "Conteúdo do texto",
+      control: { type: 'text' },
+      description: 'Conteúdo do texto',
     },
   },
   args: {
-    children: "Texto de exemplo",
-    variant: "body1",
+    children: 'Texto de exemplo',
+    variant: 'body1',
   },
   decorators: [
     (Story) => (
-      <View style={{ padding: 16, backgroundColor: "#fff", minWidth: 300 }}>
+      <View style={{ padding: 16, backgroundColor: '#fff', minWidth: 300 }}>
         <Story />
       </View>
     ),
@@ -93,7 +93,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "Este é um texto padrão usando a variante body1",
+    children: 'Este é um texto padrão usando a variante body1',
   },
 };
 
@@ -121,7 +121,7 @@ export const AllVariants: Story = {
     docs: {
       description: {
         story:
-          "Demonstração de todas as variantes disponíveis do componente Typography.",
+          'Demonstração de todas as variantes disponíveis do componente Typography.',
       },
     },
   },
@@ -130,19 +130,19 @@ export const AllVariants: Story = {
 export const WithColors: Story = {
   render: () => (
     <View style={{ gap: 16 }}>
-      <Typography variant="h3" color={"#FF6B35"}>
+      <Typography variant="h3" color={'#FF6B35'}>
         Texto com cor primária
       </Typography>
-      <Typography variant="h3" color={"#FF6B35"}>
+      <Typography variant="h3" color={'#FF6B35'}>
         Texto com cor secundária
       </Typography>
-      <Typography variant="body1" color={"#FF6B35"}>
+      <Typography variant="body1" color={'#FF6B35'}>
         Texto com cor secundária do tema
       </Typography>
-      <Typography variant="body1" color={"#FF6B35"}>
+      <Typography variant="body1" color={'#FF6B35'}>
         Texto com cor de erro
       </Typography>
-      <Typography variant="body1" color={"#4CAF50"}>
+      <Typography variant="body1" color={'#4CAF50'}>
         Texto com cor de sucesso
       </Typography>
       <Typography variant="body1" color="#FF6B35">
@@ -154,7 +154,7 @@ export const WithColors: Story = {
     docs: {
       description: {
         story:
-          "Exemplos de uso do componente com diferentes cores do tema e cores customizadas.",
+          'Exemplos de uso do componente com diferentes cores do tema e cores customizadas.',
       },
     },
   },
@@ -182,7 +182,7 @@ export const WithAlignment: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstração das diferentes opções de alinhamento de texto.",
+        story: 'Demonstração das diferentes opções de alinhamento de texto.',
       },
     },
   },
@@ -223,7 +223,7 @@ export const WithFontWeights: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstração dos diferentes pesos de fonte disponíveis.",
+        story: 'Demonstração dos diferentes pesos de fonte disponíveis.',
       },
     },
   },
@@ -233,7 +233,7 @@ export const InCard: Story = {
   render: () => (
     <View
       style={{
-        backgroundColor: "@F5F5F5",
+        backgroundColor: '@F5F5F5',
         borderRadius: 8,
         padding: 16,
         maxWidth: 350,
@@ -258,7 +258,7 @@ export const InCard: Story = {
     docs: {
       description: {
         story:
-          "Exemplo de uso do componente Typography dentro de um card, demonstrando hierarquia visual.",
+          'Exemplo de uso do componente Typography dentro de um card, demonstrando hierarquia visual.',
       },
     },
   },
@@ -266,17 +266,17 @@ export const InCard: Story = {
 
 export const Interactive: Story = {
   args: {
-    children: "Customize este texto usando os controles",
-    variant: "h2",
-    color: "#333",
-    align: "center",
-    weight: "600",
+    children: 'Customize este texto usando os controles',
+    variant: 'h2',
+    color: '#333',
+    align: 'center',
+    weight: '600',
   },
   parameters: {
     docs: {
       description: {
         story:
-          "Use os controles abaixo para explorar diferentes combinações de propriedades.",
+          'Use os controles abaixo para explorar diferentes combinações de propriedades.',
       },
     },
   },
@@ -305,7 +305,7 @@ export const LongText: Story = {
     docs: {
       description: {
         story:
-          "Demonstração de como o componente se comporta com textos longos e múltiplos parágrafos.",
+          'Demonstração de como o componente se comporta com textos longos e múltiplos parágrafos.',
       },
     },
   },
@@ -317,8 +317,8 @@ export const WithCustomStyle: Story = {
       <Typography
         variant="h2"
         style={{
-          textDecorationLine: "underline",
-          fontStyle: "italic",
+          textDecorationLine: 'underline',
+          fontStyle: 'italic',
         }}
       >
         Texto com sublinhado e itálico
@@ -326,8 +326,8 @@ export const WithCustomStyle: Story = {
       <Typography
         variant="body1"
         style={{
-          backgroundColor: "#FF6B35",
-          color: "#fff",
+          backgroundColor: '#FF6B35',
+          color: '#fff',
           padding: 8,
           borderRadius: 4,
         }}
@@ -337,7 +337,7 @@ export const WithCustomStyle: Story = {
       <Typography
         variant="h3"
         style={{
-          textShadowColor: "rgba(0, 0, 0, 0.3)",
+          textShadowColor: 'rgba(0, 0, 0, 0.3)',
           textShadowOffset: { width: 2, height: 2 },
           textShadowRadius: 4,
         }}
@@ -349,7 +349,7 @@ export const WithCustomStyle: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Exemplos de customização adicional usando a prop style.",
+        story: 'Exemplos de customização adicional usando a prop style.',
       },
     },
   },
