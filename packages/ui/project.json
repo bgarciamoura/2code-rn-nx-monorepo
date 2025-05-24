@@ -3,16 +3,11 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/ui/src",
   "projectType": "library",
-  "tags": [
-    "scope:lib",
-    "type:lib"
-  ],
+  "tags": ["scope:lib", "type:lib"],
   "targets": {
     "build": {
       "executor": "@nx/js:swc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/ui",
         "main": "packages/ui/src/index.ts",
@@ -22,9 +17,7 @@
     "tokens": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "node packages/ui/src/theme/style-dictionary.config.mjs"
-        ],
+        "commands": ["node packages/ui/src/theme/style-dictionary.config.mjs"],
         "cwd": "{workspaceRoot}"
       }
     }
