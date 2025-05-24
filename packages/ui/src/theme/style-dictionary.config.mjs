@@ -1,103 +1,159 @@
-import StyleDictionary from 'style-dictionary';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import StyleDictionary from "style-dictionary";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const tokensSource = path.resolve(__dirname, 'tokens', 'tokens.json');
+const tokensSource = path.resolve(__dirname, "tokens", "tokens.json");
 // Pasta onde o código gerado será salvo
-const outputDir = path.resolve(__dirname, 'tokens', 'generated');
+const outputDir = path.resolve(__dirname, "tokens", "generated");
 
 const sd = new StyleDictionary({
   source: [tokensSource], // O arquivo de entrada dos tokens
   hooks: {
     filters: {
-      // Filtro para incluir apenas tokens de cor
+      // Filtro para cores (inclui todas as variações)
       color: (token) => {
-        return token.type === 'color';
+        return (
+          token.type === "color" ||
+          token.path.includes("colors") ||
+          token.path.includes("fg") ||
+          token.path.includes("bg") ||
+          token.path.includes("accent") ||
+          token.path.includes("button") ||
+          token.path.includes("card")
+        );
       },
-      // Filtro para incluir apenas tokens de tamanhos
+
+      // Filtro para tamanhos
       sizing: (token) => {
-        return token.type === 'sizing';
+        return token.type === "sizing" || token.path.includes("sizing");
       },
-      // Filtro para incluir apenas tokens de tipografia
+
+      // Filtro para tipografia (cobre 'typograph' e 'typography')
       typography: (token) => {
-        return token.type === 'typography';
+        return (
+          token.type === "typography" ||
+          token.type === "typograph" ||
+          token.path.some((p) => p.includes("font") || p.includes("text"))
+        );
       },
-      // Filtro para incluir apenas tokens de espaçamento
+
+      // Filtro para sombras
+      shadow: (token) => {
+        return (
+          token.type === "boxShadow" ||
+          token.type === "dropShadow" ||
+          token.path.includes("shadow")
+        );
+      },
+
+      // Filtro para espaçamento
       spacing: (token) => {
-        return token.type === 'spacing';
+        return (
+          token.type === "spacing" ||
+          token.path.includes("paragraphSpacing") ||
+          token.path.includes("letterSpacing")
+        );
+      },
+
+      // Filtro para fontes
+      font: (token) => {
+        return (
+          token.type === "fontFamilies" ||
+          token.type === "fontWeights" ||
+          token.path.includes("font")
+        );
       },
     },
-    // Hook para adicionar prefixo aos tokens de cor
-    // prefixColor: (token) => {
-    //  if (token.attributes.category === "color") {
-    //  token.name = `color-${token.name}`;
-    //  }
-    //  return token;
-    // },
-    // Hook para deixar os nomes dos tokens sem o prefixo de tipo
-    removeTypePrefix: (token) => {
-      if (token.attributes.category !== 'color') {
-        token.name = token.name.replace(
-          /^(color|sizing|typography|spacing)-/,
-          ''
-        );
-      }
-      return token;
+    // Transformações personalizadas
+    transforms: {
+      // Transformação para nomes de tokens mais consistentes
+      nameTransform: (token) => {
+        // Remove prefixos redundantes
+        let name = token.path.join("-").toLowerCase();
+        name = name.replace(/(color|colors)-/g, "");
+        name = name.replace(/typograph-/g, "");
+        return name;
+      },
+
+      // Transformação para valores de cor
+      colorValue: (token) => {
+        if (token.type === "color") {
+          // Converte valores hex para rgba se necessário
+          return token.value.startsWith("#")
+            ? hexToRgba(token.value)
+            : token.value;
+        }
+        return token.value;
+      },
+    },
+    // Hooks de pré-processamento
+    preProcess: {
+      // Normaliza a estrutura de tipografia
+      normalizeTypography: (dictionary) => {
+        // biome-ignore lint/complexity/noForEach: <explanation>
+        dictionary.allProperties.forEach((token) => {
+          if (token.type === "typography" && token.value) {
+            // Garante que todos os campos de tipografia existam
+            token.value = {
+              fontFamily: token.value.fontFamily || "{fontFamilies.roboto}",
+              fontWeight: token.value.fontWeight || "{fontWeights.roboto-0}",
+              // ... outros campos padrão
+            };
+          }
+        });
+        return dictionary;
+      },
     },
   },
   platforms: {
     // Configuração para React Native (Expo)
     reactNative: {
-      transformGroup: 'react-native', // Grupo de transformações para RN
+      transformGroup: "react-native", // Grupo de transformações para RN
       buildPath: `${outputDir}/`,
       files: [
         {
-          destination: 'colors.ts',
-          format: 'javascript/esm',
-          filter: 'color', // Usa o filtro definido acima
-          options: {
-            minify: true, // Minifica o código gerado
-          },
+          destination: "colors.ts",
+          format: "javascript/esm",
+          filter: "color",
+          options: { minify: true },
         },
         {
-          destination: 'sizing.ts',
-          format: 'javascript/es6',
-          filter: 'sizing', // Usa o filtro definido acima
-        },
-        // Adicione mais arquivos conforme necessário
-        {
-          destination: 'typography.ts',
-          format: 'javascript/es6',
-          filter: 'typography', // Filtro para tipografia
+          destination: "sizing.ts",
+          format: "javascript/es6",
+          filter: "sizing",
         },
         {
-          destination: 'spacing.ts',
-          format: 'javascript/es6',
-          filter: 'spacing', // Filtro para espaçamento
+          destination: "typography.ts",
+          format: "javascript/es6",
+          filter: "typography",
         },
-        // Você pode adicionar mais arquivos conforme a necessidade
         {
-          destination: 'index.ts', // Um arquivo principal para exportar todos
-          format: 'javascript/es6',
-          options: {
-            outputReferences: false, // Não gera referências de CSS (útil para RN)
-          },
+          destination: "spacing.ts",
+          format: "javascript/es6",
+          filter: "spacing",
+        },
+        {
+          destination: "shadow.ts",
+          format: "javascript/esm",
+          filter: "shadow",
+          options: { minify: true },
+        },
+        {
+          destination: "fonts.ts",
+          format: "javascript/es6",
+          filter: "font",
+        },
+        {
+          destination: "index.ts",
+          format: "javascript/esm",
+          options: { minify: true },
         },
       ],
     },
-    // Você pode adicionar outras plataformas se precisar (ex: web)
-    // web: {
-    //   transformGroup: 'css',
-    //   buildPath: `${outputDir}/web/`,
-    //   files: [{
-    //     destination: 'variables.css',
-    //     format: 'css/variables'
-    //   }]
-    // }
   },
 });
 
 sd.buildAllPlatforms();
 
-console.log('Design tokens gerados com sucesso!');
+console.log("Design tokens gerados com sucesso!");
