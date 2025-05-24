@@ -1,11 +1,11 @@
-import StyleDictionary from "style-dictionary";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import StyleDictionary from 'style-dictionary';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const tokensSource = path.resolve(__dirname, "tokens", "tokens.json");
+const tokensSource = path.resolve(__dirname, 'tokens', 'tokens.json');
 // Pasta onde o código gerado será salvo
-const outputDir = path.resolve(__dirname, "tokens", "generated");
+const outputDir = path.resolve(__dirname, 'tokens', 'generated');
 
 const sd = new StyleDictionary({
   source: [tokensSource], // O arquivo de entrada dos tokens
@@ -13,19 +13,19 @@ const sd = new StyleDictionary({
     filters: {
       // Filtro para incluir apenas tokens de cor
       color: (token) => {
-        return token.type === "color";
+        return token.type === 'color';
       },
       // Filtro para incluir apenas tokens de tamanhos
       sizing: (token) => {
-        return token.type === "sizing";
+        return token.type === 'sizing';
       },
       // Filtro para incluir apenas tokens de tipografia
       typography: (token) => {
-        return token.type === "typography";
+        return token.type === 'typography';
       },
       // Filtro para incluir apenas tokens de espaçamento
       spacing: (token) => {
-        return token.type === "spacing";
+        return token.type === 'spacing';
       },
     },
     // Hook para adicionar prefixo aos tokens de cor
@@ -37,10 +37,10 @@ const sd = new StyleDictionary({
     // },
     // Hook para deixar os nomes dos tokens sem o prefixo de tipo
     removeTypePrefix: (token) => {
-      if (token.attributes.category !== "color") {
+      if (token.attributes.category !== 'color') {
         token.name = token.name.replace(
           /^(color|sizing|typography|spacing)-/,
-          "",
+          ''
         );
       }
       return token;
@@ -49,37 +49,37 @@ const sd = new StyleDictionary({
   platforms: {
     // Configuração para React Native (Expo)
     reactNative: {
-      transformGroup: "react-native", // Grupo de transformações para RN
+      transformGroup: 'react-native', // Grupo de transformações para RN
       buildPath: `${outputDir}/`,
       files: [
         {
-          destination: "colors.ts",
-          format: "javascript/esm",
-          filter: "color", // Usa o filtro definido acima
+          destination: 'colors.ts',
+          format: 'javascript/esm',
+          filter: 'color', // Usa o filtro definido acima
           options: {
             minify: true, // Minifica o código gerado
           },
         },
         {
-          destination: "sizing.ts",
-          format: "javascript/es6",
-          filter: "sizing", // Usa o filtro definido acima
+          destination: 'sizing.ts',
+          format: 'javascript/es6',
+          filter: 'sizing', // Usa o filtro definido acima
         },
         // Adicione mais arquivos conforme necessário
         {
-          destination: "typography.ts",
-          format: "javascript/es6",
-          filter: "typography", // Filtro para tipografia
+          destination: 'typography.ts',
+          format: 'javascript/es6',
+          filter: 'typography', // Filtro para tipografia
         },
         {
-          destination: "spacing.ts",
-          format: "javascript/es6",
-          filter: "spacing", // Filtro para espaçamento
+          destination: 'spacing.ts',
+          format: 'javascript/es6',
+          filter: 'spacing', // Filtro para espaçamento
         },
         // Você pode adicionar mais arquivos conforme a necessidade
         {
-          destination: "index.ts", // Um arquivo principal para exportar todos
-          format: "javascript/es6",
+          destination: 'index.ts', // Um arquivo principal para exportar todos
+          format: 'javascript/es6',
           options: {
             outputReferences: false, // Não gera referências de CSS (útil para RN)
           },
@@ -100,4 +100,4 @@ const sd = new StyleDictionary({
 
 sd.buildAllPlatforms();
 
-console.log("Design tokens gerados com sucesso!");
+console.log('Design tokens gerados com sucesso!');
