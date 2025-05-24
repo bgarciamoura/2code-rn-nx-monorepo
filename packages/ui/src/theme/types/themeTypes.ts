@@ -1,4 +1,4 @@
-import type { Colors, Spacing, BorderRadius, Shadows } from '../tokens';
+import type { Colors, Spacing, BorderRadius, Shadows } from "../tokens";
 
 export type Theme = {
   colors: Colors;
