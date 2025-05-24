@@ -268,12 +268,12 @@ This is the most powerful and flexible combination for managing and consuming de
 
 #### 1. In Figma (For the Designer)
 
-*   **Plugin:** The most popular and powerful plugin for managing design tokens in Figma is **Token Studio for Figma** (formerly known as "Figma Tokens").
-    *   **Installation:** The designer installs the plugin in Figma.
-    *   **Token Definition:** They define all tokens (colors, spacing, typography, breakpoints, shadows, etc.) within Token Studio. The big advantage is that it allows structuring tokens hierarchically (e.g., `colors.brand.primary.500`).
-    *   **Synchronization/Export:**
-        *   **Best Practice:** Configure Token Studio to **synchronize tokens directly with a Git repository** (GitHub, GitLab, Bitbucket). This is usually done for a JSON file in a specific folder of your NX project (e.g., `libs/design-tokens/src/tokens.json`).
-        *   **Alternative:** Manually export the JSON file and add it to the repository. But automatic synchronization is ideal for your case.
+- **Plugin:** The most popular and powerful plugin for managing design tokens in Figma is **Token Studio for Figma** (formerly known as "Figma Tokens").
+  - **Installation:** The designer installs the plugin in Figma.
+  - **Token Definition:** They define all tokens (colors, spacing, typography, breakpoints, shadows, etc.) within Token Studio. The big advantage is that it allows structuring tokens hierarchically (e.g., `colors.brand.primary.500`).
+  - **Synchronization/Export:**
+    - **Best Practice:** Configure Token Studio to **synchronize tokens directly with a Git repository** (GitHub, GitLab, Bitbucket). This is usually done for a JSON file in a specific folder of your NX project (e.g., `libs/design-tokens/src/tokens.json`).
+    - **Alternative:** Manually export the JSON file and add it to the repository. But automatic synchronization is ideal for your case.
 
 #### 2. In the NX Workspace (For the Developer)
 
@@ -302,19 +302,22 @@ my-nx-workspace/
 **Steps:**
 
 1.  **Create the Tokens Library:**
+
     ```bash
     nx g @nx/js:lib design-tokens --directory=libs --unitTestRunner=none --bundler=none --compiler=tsc --strict --minimal
     ```
+
     (Adjust parameters as per your preference, but `bundler=none` and `minimal` are good for a token lib).
 
 2.  **Install Style Dictionary:**
+
     ```bash
     cd libs/design-tokens
     npm install style-dictionary --save-dev # or yarn add style-dictionary --dev
     ```
 
 3.  **Configure the `project.json` of the `design-tokens` Library:**
-    In the `libs/design-tokens/project.json` file, add a *target* to generate the tokens.
+    In the `libs/design-tokens/project.json` file, add a _target_ to generate the tokens.
 
     ```json
     // libs/design-tokens/project.json
@@ -328,9 +331,7 @@ my-nx-workspace/
         "build": {
           "executor": "nx:run-commands",
           "options": {
-            "commands": [
-              "node libs/design-tokens/src/style-dictionary.config.js"
-            ],
+            "commands": ["node libs/design-tokens/src/style-dictionary.config.js"],
             "cwd": "{projectRoot}" // Executes the command in the root of the lib
           },
           "outputs": ["{projectRoot}/src/generated"], // Optional: Defines the output folder for NX cache
@@ -348,7 +349,7 @@ my-nx-workspace/
     // libs/design-tokens/src/style-dictionary.config.mjs
     import StyleDictionary from 'style-dictionary';
     import path from 'node:path';
-    import { fileURLToPath } from 'node:url'; 
+    import { fileURLToPath } from 'node:url';
 
     // Path to the JSON exported by Figma (via Token Studio)
     const tokensSource = path.resolve(__dirname, 'tokens.json');
@@ -397,9 +398,9 @@ my-nx-workspace/
               format: 'javascript/es6',
               options: {
                 outputReferences: false, // Does not generate CSS references (useful for RN)
-              }
-            }
-          ]
+              },
+            },
+          ],
         },
         // You can add other platforms if needed (e.g., web)
         // web: {
@@ -410,7 +411,7 @@ my-nx-workspace/
         //     format: 'css/variables'
         //   }]
         // }
-      }
+      },
     });
 
     sd.buildAllPlatforms();
@@ -419,6 +420,7 @@ my-nx-workspace/
     ```
 
     **Tip about JSON structure:** Style Dictionary uses the structure of your JSON to infer categories. If Token Studio exports something like:
+
     ```json
     {
       "colors": {
@@ -433,6 +435,7 @@ my-nx-workspace/
       }
     }
     ```
+
     Style Dictionary can understand `colors`, `spacing` as categories. The `filter` in `style-dictionary.config.js` uses these categories.
 
 5.  **Create an `index.ts` file at the root of the `design-tokens` library:**
@@ -469,16 +472,19 @@ my-nx-workspace/
     ```
 
 7.  **Generate the tokens for the first time:**
+
     ```bash
     nx build design-tokens
     ```
+
     After running, you should see the generated files in `libs/design-tokens/src/generated/` (e.g., `colors.ts`, `spacing.ts`).
 
     Example of generated `colors.ts`:
+
     ```typescript
     // libs/design-tokens/src/generated/colors.ts
-    export const colorsPrimary = "#3498db";
-    export const colorsSecondary = "#2ecc71";
+    export const colorsPrimary = '#3498db';
+    export const colorsSecondary = '#2ecc71';
     // ...
     ```
 
@@ -503,7 +509,7 @@ const MyButton: React.FC = () => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colorsPrimary, // Using the color token
-    padding: spacingM,             // Using the spacing token
+    padding: spacingM, // Using the spacing token
     borderRadius: 4,
   },
   text: {
@@ -517,7 +523,7 @@ export default MyButton;
 ```
 
 **Tip for `fontSizes` and `spacing`:**
-Style Dictionary might generate values like `"16px"`. To use them directly in React Native, you'll need to remove the `px` or configure a custom *transformer* in Style Dictionary to do this automatically.
+Style Dictionary might generate values like `"16px"`. To use them directly in React Native, you'll need to remove the `px` or configure a custom _transformer_ in Style Dictionary to do this automatically.
 
 Example of a transformer to remove 'px' and convert to a number:
 You can add a custom transformer in your `style-dictionary.config.js`:
@@ -530,12 +536,12 @@ You can add a custom transformer in your `style-dictionary.config.js`:
 StyleDictionary.registerTransform({
   name: 'size/pxToNumber',
   type: 'value',
-  matcher: function(prop) {
+  matcher: function (prop) {
     return prop.attributes.category === 'spacing' || prop.attributes.category === 'font-size';
   },
-  transformer: function(prop) {
+  transformer: function (prop) {
     return parseFloat(prop.value);
-  }
+  },
 });
 
 StyleDictionary.extend({
@@ -547,11 +553,12 @@ StyleDictionary.extend({
       buildPath: `${outputDir}/`,
       files: [
         // ... your files
-      ]
-    }
-  }
+      ],
+    },
+  },
 }).buildAllPlatforms();
 ```
+
 With this, `spacingM` would already come as `16` (number).
 
 ---
@@ -561,19 +568,20 @@ With this, `spacingM` would already come as `16` (number).
 This is where the magic happens for `when the designer updates them in Figma`.
 
 1.  **Token Studio Git Synchronization:**
-    *   Configure Token Studio in Figma to **synchronize (push) changes directly to a specific branch** in your Git repository (e.g., `design-tokens`). It will commit and push the `tokens.json` whenever the designer saves changes in Figma.
+
+    - Configure Token Studio in Figma to **synchronize (push) changes directly to a specific branch** in your Git repository (e.g., `design-tokens`). It will commit and push the `tokens.json` whenever the designer saves changes in Figma.
 
 2.  **CI/CD Pipeline (Recommended):**
     This is the most robust way to ensure your code is always up-to-date.
 
-    *   **Trigger:** Configure your CI/CD (GitHub Actions, GitLab CI, Jenkins, Azure DevOps, CircleCI, etc.) to **monitor changes in the `libs/design-tokens/src/tokens.json` file**.
-    *   **CI/CD Steps:**
-        1.  **Checkout Code:** The pipeline downloads the repository.
-        2.  **Install Dependencies:** `npm install` (or `yarn install`).
-        3.  **Generate Tokens:** Execute the command `nx build design-tokens`. This will generate the Typescript files in the `libs/design-tokens/src/generated/` folder.
-        4.  **Verify Changes:** The pipeline can check if there have been any changes to the generated files.
-        5.  **Commit and Push (Optional, but common):** If there are changes in the generated files, the pipeline can automatically commit and push these generated files to the repository (e.g., to an `auto-generated-tokens` branch). This will keep the generated files under version control and available to other developers.
-        6.  **Trigger Application Tests/Build:** Optionally, after generating the tokens, the pipeline can trigger an `nx build my-expo-app` or `nx test my-expo-app` to ensure everything still works.
+    - **Trigger:** Configure your CI/CD (GitHub Actions, GitLab CI, Jenkins, Azure DevOps, CircleCI, etc.) to **monitor changes in the `libs/design-tokens/src/tokens.json` file**.
+    - **CI/CD Steps:**
+      1.  **Checkout Code:** The pipeline downloads the repository.
+      2.  **Install Dependencies:** `npm install` (or `yarn install`).
+      3.  **Generate Tokens:** Execute the command `nx build design-tokens`. This will generate the Typescript files in the `libs/design-tokens/src/generated/` folder.
+      4.  **Verify Changes:** The pipeline can check if there have been any changes to the generated files.
+      5.  **Commit and Push (Optional, but common):** If there are changes in the generated files, the pipeline can automatically commit and push these generated files to the repository (e.g., to an `auto-generated-tokens` branch). This will keep the generated files under version control and available to other developers.
+      6.  **Trigger Application Tests/Build:** Optionally, after generating the tokens, the pipeline can trigger an `nx build my-expo-app` or `nx test my-expo-app` to ensure everything still works.
 
 **Basic Example for GitHub Actions (`.github/workflows/design-tokens.yml`):**
 
@@ -619,11 +627,11 @@ jobs:
 
 ### Advantages of this Approach
 
-*   **Single Source of Truth:** Tokens live only in Figma, controlled by the designer.
-*   **Full Automation:** From creation in Figma to usage in code, everything is automated.
-*   **Consistency:** Ensures that the code accurately reflects design specifications.
-*   **Error Reduction:** Eliminates manual transcription, which is prone to errors.
-*   **Agility:** Design updates can be rapidly propagated to the code without manual developer intervention.
-*   **NX Advantage:** Tokens are a shared library, easily importable by any application or other library within your NX workspace.
+- **Single Source of Truth:** Tokens live only in Figma, controlled by the designer.
+- **Full Automation:** From creation in Figma to usage in code, everything is automated.
+- **Consistency:** Ensures that the code accurately reflects design specifications.
+- **Error Reduction:** Eliminates manual transcription, which is prone to errors.
+- **Agility:** Design updates can be rapidly propagated to the code without manual developer intervention.
+- **NX Advantage:** Tokens are a shared library, easily importable by any application or other library within your NX workspace.
 
 This approach will dramatically transform how you handle design tokens, making the process much more efficient and less prone to headaches.
