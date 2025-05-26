@@ -1,7 +1,8 @@
 import { GlobalStyles } from '@tocode/ui';
+import { Button, Typography } from '@tocode/ui';
 import { useMemo } from 'react';
-import { Pressable, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeProvider';
+import { Text, View } from 'react-native';
 
 const HomeScreen = () => {
   const { theme, toggleTheme } = useTheme();
@@ -9,13 +10,36 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
-
+      <Text
+        style={{
+          fontSize: styles.title.fontSize,
+          marginBottom: styles.title.marginBottom,
+          color: styles.title.color.main,
+          textAlign: 'center',
+        }}
+      >
+        Home Screen
+      </Text>
       <View style={styles.card}>
-        <Text style={styles.title}>Current Theme: {theme.name}</Text>
-        <Pressable style={styles.button} onPress={toggleTheme}>
-          <Text style={styles.buttonText}>Toggle Theme</Text>
-        </Pressable>
+        <Text
+          style={{
+            fontSize: styles.title.fontSize,
+            marginBottom: styles.title.marginBottom,
+            color: styles.title.color.main,
+            textAlign: 'center',
+          }}
+        >
+          Current Theme: {theme.name}
+        </Text>
+        <Button
+          onPress={toggleTheme}
+          variant="primary"
+          size="small"
+          style={styles.button}
+          textStyle={styles.buttonText}
+        >
+          <Typography variant="button">Toggle Theme</Typography>
+        </Button>
       </View>
     </View>
   );

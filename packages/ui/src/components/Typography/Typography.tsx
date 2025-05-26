@@ -1,29 +1,8 @@
 import { Text } from 'react-native';
-import type { TextStyle, TextProps } from 'react-native';
 import { styles } from './Typography.styles';
-import type { TypographyVariant } from './types/TypographVariant';
+import type { TypographyProps } from './types/TypographyProps';
 
-interface TypographyProps extends TextProps {
-  variant?: TypographyVariant;
-  color?: string;
-  align?: 'auto' | 'left' | 'right' | 'center' | 'justify';
-  weight?:
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
-  children: React.ReactNode;
-  style?: TextStyle | TextStyle[];
-}
-
-const Typography: React.FC<TypographyProps> = ({
+const Typography = ({
   variant = 'body1',
   color,
   align,
@@ -31,7 +10,7 @@ const Typography: React.FC<TypographyProps> = ({
   children,
   style,
   ...rest
-}) => {
+}: TypographyProps) => {
   return (
     <Text
       style={[
@@ -49,5 +28,4 @@ const Typography: React.FC<TypographyProps> = ({
   );
 };
 
-export default Typography;
-export type { TypographyProps };
+export { Typography };
