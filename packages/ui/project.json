@@ -1,7 +1,7 @@
 {
   "name": "ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/ui/src",
+  "sourceRoot": "packages/ui/src",
   "projectType": "library",
   "tags": ["scope:lib", "type:lib"],
   "targets": {
@@ -12,6 +12,13 @@
         "outputPath": "dist/packages/ui",
         "main": "packages/ui/src/index.ts",
         "tsConfig": "packages/ui/tsconfig.lib.json"
+      }
+    },
+    "tokens": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node packages/ui/src/theme/style-dictionary.config.mjs"],
+        "cwd": "{workspaceRoot}"
       }
     }
   }

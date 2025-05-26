@@ -16,17 +16,17 @@ const GlobalStyles = createStyles((theme) => ({
   },
   title: {
     fontSize: 18,
-    color: theme.colors.text.primary,
+    color: theme.colors.primary,
     marginBottom: theme.spacing.sm,
   },
   button: {
-    backgroundColor: theme.colors.primary.main,
+    backgroundColor: theme.colors.background.default,
     paddingVertical: theme.spacing.sm,
     borderRadius: theme.borderRadius.sm,
     alignItems: 'center',
   },
   buttonText: {
-    color: theme.colors.primary.contrastText,
+    color: theme.colors.primary.main,
     fontWeight: '600',
   },
 }));
