@@ -1,15 +1,15 @@
-import { createStyles } from './createStyles';
+import { createStyles } from "./createStyles";
 
 const GlobalStyles = createStyles((theme) => ({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.default.colors.bg.default,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.colors.default.colors.background.default,
     padding: theme.spacing.md,
   },
   card: {
-    backgroundColor: theme.colors.default.colors.bg.muted,
+    backgroundColor: theme.colors.default.colors.background.paper,
     borderRadius: theme.borderRadius.md,
     ...theme.shadows.md,
     padding: theme.spacing.md,
@@ -20,14 +20,14 @@ const GlobalStyles = createStyles((theme) => ({
     marginBottom: theme.spacing.sm,
   },
   button: {
-    backgroundColor: theme.colors.default.colors.primary,
+    backgroundColor: theme.colors.default.colors.background.default,
     paddingVertical: theme.spacing.sm,
     borderRadius: theme.borderRadius.sm,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
-    color: theme.colors.default.colors.cerulean,
-    fontWeight: '600',
+    color: theme.colors.default.colors.primary.dark,
+    fontWeight: "600",
   },
 }));
 
