@@ -1,10 +1,10 @@
-import { createStyles } from "./createStyles";
+import { createStyles } from './createStyles';
 
 const GlobalStyles = createStyles((theme) => ({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.colors.default.colors.background.default,
     padding: theme.spacing.md,
   },
@@ -23,11 +23,11 @@ const GlobalStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.default.colors.background.default,
     paddingVertical: theme.spacing.sm,
     borderRadius: theme.borderRadius.sm,
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttonText: {
     color: theme.colors.default.colors.primary.dark,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 }));
 
