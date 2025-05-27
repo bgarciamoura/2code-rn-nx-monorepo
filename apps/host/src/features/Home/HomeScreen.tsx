@@ -1,5 +1,5 @@
 import { GlobalStyles } from '@tocode/ui';
-import { Button, Typography } from '@tocode/ui';
+import { Button, Typography, Input } from '@tocode/ui';
 import { useMemo } from 'react';
 import { useTheme } from '../../contexts/ThemeProvider';
 import { Text, View } from 'react-native';
@@ -40,6 +40,14 @@ const HomeScreen = () => {
         >
           <Typography variant="button">Toggle Theme</Typography>
         </Button>
+
+        <Input
+          label="Sample Input"
+          placeholder="Type something..."
+          theme={theme}
+          errorMessage="This is an error message"
+          disabled={false}
+        />
       </View>
     </View>
   );
